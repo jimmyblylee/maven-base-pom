@@ -1,0 +1,360 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.lee</groupId>
+        <artifactId>base</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../base/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>platform</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Maven Platform BOM</name>
+    <description>
+        <![CDATA[
+            Projects' <b>plugin management</b>, specifying the JBP stack for runtime use
+        ]]>
+    </description>
+    
+    <prerequisites>
+        <maven>3.2.1</maven>
+    </prerequisites>
+
+    <properties>
+        <bom.version>1.0.0-SNAPSHOT</bom.version>
+
+        <!-- plugins versions and settings -->
+        <maven-help-plugin.version>2.2</maven-help-plugin.version>
+        <maven-release-plugin.version>2.5.2</maven-release-plugin.version>
+        <maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <maven-compiler-plugin.source>1.7</maven-compiler-plugin.source>
+        <maven-compiler-plugin.target>1.7</maven-compiler-plugin.target>
+        <maven-assembly-plugin.version>2.6</maven-assembly-plugin.version>
+        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+        <maven-war-plugin.version>2.6</maven-war-plugin.version>
+        
+        <encoding>UTF-8</encoding>
+        <maven.test.skip>true</maven.test.skip>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+				<groupId>com.lee</groupId>
+				<artifactId>bom</artifactId>
+				<version>${bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+			</dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+    <build>        
+        <!-- managed plugins -->
+        <pluginManagement>
+            <plugins>
+                <!-- The Maven Help Plugin is used to get relative information 
+                    about a project or the system. ref: http://maven.apache.org/plugins/maven-help-plugin/index.html -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-help-plugin</artifactId>
+                    <version>${maven-help-plugin.version}</version>
+                </plugin>
+                <!-- This plugin is used to release a project with Maven, 
+                    saving a lot of repetitive, manual work. Releasing a project is made in two 
+                    steps: prepare and perform. ref: http://maven.apache.org/maven-release/maven-release-plugin/ 
+                    TODO -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                </plugin>
+                <!-- The Resources Plugin handles the copying of project 
+                    resources to the output directory. ref: http://maven.apache.org/plugins/maven-resources-plugin/ -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                    <configuration>
+                        <encoding>${encoding}</encoding>
+                    </configuration>
+                </plugin>
+                <!-- The Compiler Plugin is used to compile the sources of 
+                    your project. ref: http://maven.apache.org/plugins/maven-compiler-plugin/ -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${maven-compiler-plugin.source}</source>
+                        <target>${maven-compiler-plugin.target}</target>
+                        <encoding>${encoding}</encoding>
+                    </configuration>
+                </plugin>
+                <!-- The Assembly Plugin for Maven is primarily intended 
+                    to allow users to aggregate the project output along with its dependencies, 
+                    modules, site documentation, and other files into a single distributable 
+                    archive. ref: http://maven.apache.org/plugins/maven-assembly-plugin/ -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${maven-assembly-plugin.version}</version>
+                    <configuration>
+                        <descriptors>
+                            <descriptor>src/main/assembly/package.xml</descriptor>
+                        </descriptors>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- This plugin provides the capability to build jars. ref: 
+                    http://maven.apache.org/plugins/maven-jar-plugin/ -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <addMavenDescriptor>true</addMavenDescriptor>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <!-- The WAR Plugin is responsible for collecting all artifact 
+                    dependencies, classes and resources of the web application and packaging 
+                    them into a web application archive. ref: http://maven.apache.org/plugins/maven-war-plugin/ -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <addMavenDescriptor>true</addMavenDescriptor>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <!-- plugins -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <profiles>
+        <profile>
+            <id>test-profile</id>
+
+            <activation>
+                <property>
+                    <name>performTest</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            
+            <properties>
+                <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
+                <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
+                <skip.dependency.check>false</skip.dependency.check>
+                <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+                <maven-surefire-plugin.skip>false</maven-surefire-plugin.skip>
+                <maven.test.skip>false</maven.test.skip>
+            </properties>
+            
+            <build>
+                <!-- managed plugins -->
+                <pluginManagement>
+                    <plugins>
+                        <!-- The Enforcer plugin provides goals to control certain 
+                            environmental constraints such as Maven version, JDK version and OS family 
+                            along with many more standard rules and user created rules. ref: http://maven.apache.org/enforcer/maven-enforcer-plugin/ -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-enforcer-plugin</artifactId>
+                            <version>${maven-enforcer-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <id>enforce-project</id>
+                                    <phase>verify</phase>
+                                    <goals>
+                                        <goal>enforce</goal>
+                                    </goals>
+                                    <configuration>
+                                        <rules>
+                                            <requireJavaVersion>
+                                                <version>[${maven-compiler-plugin.target},)</version>
+                                            </requireJavaVersion>
+                                            <requireMavenVersion>
+                                                <version>[3.2.1,)</version>
+                                            </requireMavenVersion>
+                                            <requireEnvironmentVariable>
+                                                <variableName>JAVA_HOME</variableName>
+                                            </requireEnvironmentVariable>
+                                        </rules>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <!-- The dependency plugin provides the capability to manipulate 
+                            artifacts. It can copy and/or unpack artifacts from local or remote repositories 
+                            to a specified location. ref: http://maven.apache.org/plugins/maven-dependency-plugin/ -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-dependency-plugin</artifactId>
+                            <version>${maven-dependency-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <id>analyze-dependencies</id>
+                                    <phase>verify</phase>
+                                    <goals>
+                                        <goal>analyze-only</goal>
+                                    </goals>
+                                    <configuration>
+                                        <failOnWarning>false</failOnWarning>
+                                        <ignoreNonCompile>true</ignoreNonCompile>
+                                        <skip>${skip.dependency.check}</skip>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <!-- The Surefire Plugin is used during the test phase of 
+                            the build lifecycle to execute the unit tests of an application. ref: http://maven.apache.org/surefire/maven-surefire-plugin/ -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <version>${maven-surefire-plugin.version}</version>
+                            <configuration>
+                                <argLine>-XX:-UseSplitVerifier</argLine>
+                                <skip>${maven-surefire-plugin.skip}</skip>
+                            </configuration>
+                        </plugin>
+                        <!-- The Surefire Plugin is used during the test phase of 
+                            the build lifecycle to execute the unit tests of an application. ref: http://maven.apache.org/surefire/maven-surefire-plugin/ -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-report-plugin</artifactId>
+                            <version>${maven-surefire-plugin.version}</version>
+                            <configuration>
+                                <skipSurefireReport>${maven-surefire-plugin.skip}</skipSurefireReport>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>release-profile</id>
+
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            
+            <properties>
+                <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+                <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+            </properties>
+            
+            <build>
+                <!-- managed plugins -->
+                <pluginManagement>
+                    <plugins>
+                        <!-- The Javadoc Plugin uses the Javadoc tool to generate 
+                            javadocs for the specified project. ref: http://maven.apache.org/plugins/maven-javadoc-plugin/ -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>${maven-javadoc-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <id>attach-javadocs</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>jar</goal>
+                                    </goals>
+                                    <configuration>
+                                        <quiet>true</quiet>
+                                        <charset>${encoding}</charset>
+                                        <encoding>${encoding}</encoding>
+                                        <docencoding>${encoding}</docencoding>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <!-- The Source Plugin creates a jar archive of the source 
+                            files of the current project. The jar file is, by default, created in the 
+                            project's target directory. ref: http://maven.apache.org/plugins/maven-source-plugin/ -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-source-plugin</artifactId>
+                            <version>${maven-source-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <phase>package</phase>
+                                    <id>attach-sources</id>
+                                    <goals>
+                                        <goal>jar</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
