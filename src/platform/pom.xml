@@ -284,11 +284,11 @@
         </profile>
         
         <profile>
-            <id>release-profile</id>
+            <id>source-profile</id>
 
             <activation>
                 <property>
-                    <name>performRelease</name>
+                    <name>performSource</name>
                     <value>true</value>
                 </property>
             </activation>
