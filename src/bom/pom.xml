@@ -16,33 +16,63 @@
     <name>Maven Dependencies BOM</name>
     <description>
         <![CDATA[
-            Projects' <b>dependency management</b>
+            Dependencies that most of my projects will be use will be managed here.
         ]]>
     </description>
 
     <properties>
+        <!--
+            springframework dependencies
+        -->
         <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
         <aspectjweaver.version>1.8.9</aspectjweaver.version>
         <spring-security.version>4.0.4.RELEASE</spring-security.version>
+        
+        <!--
+            net work dependencies
+        -->
         <pjl-comp-filter.version>1.7</pjl-comp-filter.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <jackson-databind.version>2.7.3</jackson-databind.version>
+        
+        <!--
+            console log dependencies
+        -->
+        <commons-logging.version>1.2</commons-logging.version>
         <logback-classic.version>1.1.7</logback-classic.version>
-        <jansi.version>1.11</jansi.version>
-        <jcl-over-slf4j.version>1.7.20</jcl-over-slf4j.version>
-        <junit.version>4.12</junit.version>
-        <pinyin4j.version>2.5.0</pinyin4j.version>
+        <log4j2.version>2.6.2</log4j2.version>
+        <jansi.version>1.13</jansi.version>
+        <slf4j-api.version>1.7.20</slf4j-api.version>
+        
+        <!--
+            Data access dependencies
+        -->
         <hibernate-core.version>5.1.0.Final</hibernate-core.version>
         <mysql-connector-java.version>5.1.27</mysql-connector-java.version>
+        <ucanaccess.version>3.0.6</ucanaccess.version>
         <!-- atomikos should only be 3.9.3, latest "Stable" version has bugs -->
         <atomikos.version>3.9.3</atomikos.version>
         <commons-net.version>3.5</commons-net.version>
         
+        <!--
+            unit test dependencies
+        -->
+        <junit.version>4.12</junit.version>
+        <jndi.fscontext.version>1.2-beta-3</jndi.fscontext.version>
+        
+        <!--
+            other dependencies
+        -->
+        <pinyin4j.version>2.5.0</pinyin4j.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+        
+            <!--
+                springframework dependencies
+            -->
             <!-- spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -81,6 +111,10 @@
                 <artifactId>spring-security-config</artifactId>
                 <version>${spring-security.version}</version>
             </dependency>
+            
+            <!--
+                net work dependencies
+            -->
             <!-- compile filter -->
             <dependency>
                 <groupId>net.sourceforge.pjl-comp-filter</groupId>
@@ -107,38 +141,49 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson-databind.version}</version>
             </dependency>
-            <!-- log -->
+            
+            <!--
+                console log dependencies,
+                you should depend one and only one between log4j2 and logback
+            -->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons-logging.version}</version>
+            </dependency>
+            <!-- logback -->
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback-classic.version}</version>
+            </dependency>
+            <!-- log4j2 -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j2.version}</version>
             </dependency>
             <!-- colour console log support for windows -->
             <dependency>
                 <groupId>org.fusesource.jansi</groupId>
                 <artifactId>jansi</artifactId>
                 <version>${jansi.version}</version>
-                <scope>runtime</scope>
             </dependency>
             <!-- slf4j jcl to replace commons-logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
-                <version>${jcl-over-slf4j.version}</version>
+                <version>${slf4j-api.version}</version>
             </dependency>
-            <!-- junit -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <!-- chinese pinyin spell helper -->
-            <dependency>
-                <groupId>com.belerweb</groupId>
-                <artifactId>pinyin4j</artifactId>
-                <version>${pinyin4j.version}</version>
-            </dependency>
+            
+            <!--
+                Data access dependencies
+            -->
             <!-- hibernate -->
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -156,10 +201,17 @@
                 <version>${hibernate-core.version}</version>
             </dependency>
             <!-- data base connection driver -->
+            <!-- driver for mysql -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector-java.version}</version>
+            </dependency>
+            <!-- driver for access -->
+            <dependency>
+                <groupId>net.sf.ucanaccess</groupId>
+                <artifactId>ucanaccess</artifactId>
+                <version>${ucanaccess.version}</version>
             </dependency>
             <!-- distributed tx support -->
             <dependency>
@@ -177,6 +229,28 @@
                 <artifactId>commons-net</artifactId>
                 <version>${commons-net.version}</version>
             </dependency>
+            
+            <!--
+                unit test dependencies
+            -->
+            <!-- junit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            
+            <!--
+                other dependencies
+            -->
+            <!-- chinese pinyin spell helper -->
+            <dependency>
+                <groupId>com.belerweb</groupId>
+                <artifactId>pinyin4j</artifactId>
+                <version>${pinyin4j.version}</version>
+            </dependency>
+            
         </dependencies>
     </dependencyManagement>
 </project>
