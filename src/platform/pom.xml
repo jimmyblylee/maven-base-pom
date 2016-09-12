@@ -32,8 +32,8 @@
         <maven-release-plugin.version>2.5.2</maven-release-plugin.version>
         <maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
-        <maven-compiler-plugin.source>1.7</maven-compiler-plugin.source>
-        <maven-compiler-plugin.target>1.7</maven-compiler-plugin.target>
+        <maven-compiler-plugin.source>1.8</maven-compiler-plugin.source>
+        <maven-compiler-plugin.target>1.8</maven-compiler-plugin.target>
         <maven-assembly-plugin.version>2.6</maven-assembly-plugin.version>
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
