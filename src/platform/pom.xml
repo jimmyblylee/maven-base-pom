@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>platform</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1.RELEASE</version>
     <packaging>pom</packaging>
 
     <name>Maven Platform BOM</name>
@@ -25,7 +25,7 @@
     </prerequisites>
 
     <properties>
-        <bom.version>1.0.1-SNAPSHOT</bom.version>
+        <bom.version>1.0.1.RELEASE</bom.version>
 
         <!-- plugins versions and settings -->
         <maven-help-plugin.version>2.2</maven-help-plugin.version>
