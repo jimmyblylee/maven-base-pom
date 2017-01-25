@@ -35,8 +35,10 @@
         <maven-compiler-plugin.source>1.8</maven-compiler-plugin.source>
         <maven-compiler-plugin.target>1.8</maven-compiler-plugin.target>
         <maven-assembly-plugin.version>2.6</maven-assembly-plugin.version>
+        <maven-ejb-plugin.version>2.5.1</maven-ejb-plugin.version>
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
+        <maven-ear-plugin.version>2.10.1</maven-ear-plugin.version>
         
         <encoding>UTF-8</encoding>
         <maven.test.skip>true</maven.test.skip>
@@ -119,6 +121,28 @@
                         </execution>
                     </executions>
                 </plugin>
+                <!--
+                    This plugin generates J2EE Enterprise Javabean (EJB) file as well as the associated client jar.
+                    ref: http://maven.apache.org/plugins/maven-ejb-plugin/
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ejb-plugin</artifactId>
+                    <version>${maven-ejb-plugin.version}</version>
+                    <configuration>
+                        <ejbVersion>3.0</ejbVersion>
+                        <archive>
+                            <addMavenDescriptor>true</addMavenDescriptor>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <DAI-Release>${project.version}.${env.BUILD_NUMBER}</DAI-Release>
+                                <SVN-Revision>${env.SVN_REVISION}</SVN-Revision>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
                 <!-- This plugin provides the capability to build jars. ref: 
                     http://maven.apache.org/plugins/maven-jar-plugin/ -->
                 <plugin>
@@ -147,6 +171,27 @@
                             <manifest>
                                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <!--
+                    This plugin generates Java EE Enterprise Archive (EAR) file.
+                    ref: http://maven.apache.org/plugins/maven-ear-plugin/
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>${maven-ear-plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <addMavenDescriptor>true</addMavenDescriptor>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <DAI-Release>${project.version}.${env.BUILD_NUMBER}</DAI-Release>
+                                <SVN-Revision>${env.SVN_REVISION}</SVN-Revision>
+                            </manifestEntries>
                         </archive>
                     </configuration>
                 </plugin>

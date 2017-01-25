@@ -29,6 +29,11 @@
         <spring-security.version>4.1.3.RELEASE</spring-security.version>
         
         <!--
+            ejg dependencies
+        -->
+        <ejb-api.version>3.0</ejb-api.version>
+        
+        <!--
             net work dependencies
         -->
         <pjl-comp-filter.version>1.7</pjl-comp-filter.version>
@@ -126,6 +131,16 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-core</artifactId>
                 <version>${spring-security.version}</version>
+            </dependency>
+            
+            <!--
+                ejg dependencies
+            -->
+            <!-- ejb -->
+            <dependency>
+                <groupId>javax.ejb</groupId>
+                <artifactId>ejb-api</artifactId>
+                <version>${ejb-api.version}</version>
             </dependency>
             
             <!--
